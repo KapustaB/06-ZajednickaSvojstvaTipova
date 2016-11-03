@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Vsite.CSharp
 {
     // TODO: Definirati da klasa Osoba implementira sučelje IEquatable<Osoba>
-    public class Osoba :IEquatable<Osoba>
+    public class Osoba : IEquatable<Osoba>
     {
         public Osoba(string ime, int matičniBroj)
         {
@@ -16,29 +16,27 @@ namespace Vsite.CSharp
         int m_matičniBroj;  // član vrijednosnog tipa
 
         // TODO: Implementirati metodu Equals(Osoba) iz sučelja IEquatable<Osoba> tako da za osobe s istim imenom i istim matičnim brojem rezultat bude true
-
+        public bool Equals(Osoba obj)
+        {
+            if (m_matičniBroj != obj.m_matičniBroj)
+                return false;
+            return object.Equals(m_ime, obj.m_ime);
+        }
 
         // TODO: Pregaziti (override) metodu Equals(object) tako da poziva Equals(Osoba)
         public override bool Equals(object obj)
         {
             if (obj == null)
                 return false;
-            if (GetType() == obj.GetType())
+            if (GetType() != obj.GetType())
                 return false;
-            return base.Equals((Osoba)obj);
+            return Equals((Osoba)obj);
         }
 
 
         public override string ToString()
         {
             return string.Format("'{0}, {1}'", m_ime, m_matičniBroj);
-        }
-
-        public bool Equals(Osoba other)
-        {
-            if (m_matičniBroj != other.m_matičniBroj)
-                return false;
-            return object.Equals(m_ime, other.m_ime);
         }
     }
 
